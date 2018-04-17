@@ -3,3 +3,7 @@ nbproject/build-impl.xml
 nbproject/genfiles.properties
 /build/
 /dist/
+.DS_Store
+.project
+bin/
+.classpath
