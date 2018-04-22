@@ -1,0 +1,70 @@
+plugins {
+    //id  'com.github.spotbugs' version '1.6.0'
+}
+
+apply plugin: 'application'
+apply plugin: "java"
+apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+sourceSets {
+    main.java.srcDirs = ["src"]
+	main.resources.srcDirs = ["Images"]
+	test.java.srcDirs = ["src"]
+	test.resources.srcDirs = ["Images"]
+}
+
+mainClassName = 'connect.four.gui.GUI'
+compileJava.options.encoding = 'UTF-8'
+
+// Repositories and dependencies for code go here
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	//compile 'com.io7m.xom:xom:1.2.+'
+    //compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
+    compile 'junit:junit:4.11'
+}
+
+test {
+    dependsOn 'cleanTest'
+    testLogging {
+        // Show that tests are run in the command-line output
+        events "passed", "failed"
+        // showStandardStreams true
+    }
+    scanForTestClasses = true
+    //include "TestSuite/AllTests.class"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/reports/tests/jacocoHtml")
+    }
+}
+
+//----Checkstyle----
+checkstyle {
+    // Keep checkstyle a little quieter
+    ignoreFailures = true
+    showViolations = false
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        html.enabled = true
+        xml.enabled = false
+    }
+}
+checkstyle {
+    toolVersion = "8.8"
+}
+
+check.dependsOn jacocoTestReport
