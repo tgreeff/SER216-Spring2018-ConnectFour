@@ -6,7 +6,16 @@
 
 package connect.four.gui;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JToggleButton;
+
 import connect.four.Game;
+import connect.four.board.*;;
+
 
 
 public class MainMenuPanel extends javax.swing.JPanel {
@@ -32,13 +41,22 @@ public class MainMenuPanel extends javax.swing.JPanel {
 	@SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
-
+		
+		
                 title = new javax.swing.JLabel();
                 tfplayer1 = new javax.swing.JTextField();
                 tfplayer2 = new javax.swing.JTextField();
                 jLabel1 = new javax.swing.JLabel();
                 jLabel2 = new javax.swing.JLabel();
+                play1= new javax.swing.JButton();
+                play2= new javax.swing.JButton();
+                
+                
+                ButtonGroup group= new ButtonGroup();
+                
                 butPlay = new javax.swing.JButton();
+                
+                
                 jtComputerToggle = new javax.swing.JToggleButton();
 
                 setBackground(new java.awt.Color(0, 0, 0));
@@ -46,6 +64,8 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 title.setFont(new java.awt.Font("Lucida Grande", 0, 48)); // NOI18N
                 title.setForeground(new java.awt.Color(255, 255, 255));
                 title.setText("Connect Four");
+                
+                
 
                 tfplayer1.setText("Player 1");
                 tfplayer1.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +88,68 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
                 jLabel2.setForeground(new java.awt.Color(255, 255, 255));
                 jLabel2.setText("Player 2:");
+                
+                
+                play1.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+                play1.setText("player 1 first");
+                play1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                play1ActionPerformed(evt);
+                        }
+
+						private void play1ActionPerformed(ActionEvent evt) {
+							// TODO Auto-generated method stub
+							if(!isEnabled) {
+								play2.setEnabled(false);
+								//play1.pla
+								
+							}else {
+								play2.setEnabled(true);
+							}
+							//gui.remove(this);
+							gui.addGamePanel();
+							gui.updateDisplay();
+							
+						}
+                        
+                        
+                });
+                
+                play2.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+                play2.setText("olay");
+                play2.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            play2ActionPerformed(evt);
+                            
+                    }
+
+					private void play2ActionPerformed(ActionEvent evt) {
+						// TODO Auto-generated method stub
+						if(!isEnabled) {
+							play1.setEnabled(false);
+							
+							
+						}else
+						{
+							play2.setEnabled(true);
+						
+						}
+						//gui.remove(this);
+						gui.addGamePanel();
+						gui.updateDisplay();
+						
+					}
+                });
+                
+                group.add(play1);
+                group.add(play2);
+                
+                
+    
+                
+                
+                
+               
 
                 butPlay.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
                 butPlay.setText("PLAY");
@@ -181,5 +263,11 @@ public class MainMenuPanel extends javax.swing.JPanel {
         private javax.swing.JTextField tfplayer1;
         private javax.swing.JTextField tfplayer2;
         private javax.swing.JLabel title;
+        private javax.swing.JButton play1;
+        private javax.swing.JButton play2;
+        
+        
+        
+        
         // End of variables declaration//GEN-END:variables
 }
