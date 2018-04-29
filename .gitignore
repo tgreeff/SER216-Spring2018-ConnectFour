@@ -8,3 +8,4 @@ nbproject/genfiles.properties
 .project
 bin/
 .classpath
+.settings/

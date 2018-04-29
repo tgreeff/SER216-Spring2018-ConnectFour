@@ -6,158 +6,314 @@
 
 package connect.four.gui;
 
-import connect.four.*;
-import connect.four.board.*;
-import connect.four.player.*;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.*;
+import javax.swing.*;
 
+/**
+ * This class initializes the GUI for the game.
+ */
+public class GUI extends JFrame {
+  private static boolean isDevBuild;  
+  MainMenuPanel mainMenu;
+  GamePanel gamePanel;
+  GameOverPanel gameOverPanel;
+  String p1Name;
+  String p2Name;
+  String winner;
+  static int score1 = 0;
+  static int score2 = 0;
+  static int wins1 = 0;
+  static int losses1 = 0;
+  static int wins2 = 0;
+  static int losses2 = 0;
+  static int winsComp = 0;
+  static int lossesComp = 0;
 
-public class GUI extends javax.swing.JFrame {
+  /**
+   * GUI constructor.
+   */
+  public GUI() {
+    this.getScore();
+    initComponents();
+    mainMenu = new MainMenuPanel(this);
+    add(mainMenu);
+  }
 
-	MainMenuPanel mainMenu;
-	GamePanel gamePanel;
-	GameOverPanel gameOverPanel;
-	String p1Name;
-	String p2Name;
-	String winner;
-	int score1, score2;
-	
-	public GUI() {
-		initComponents();
-		score1 = 0;
-		score2 = 0;
-		//gamePanel = new GamePanel(this);
-		mainMenu = new MainMenuPanel(this);
-		add(mainMenu);
-		
-	}
+  private void initComponents() {
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-	
-	@SuppressWarnings("unchecked")
-        // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-        private void initComponents() {
+    GroupLayout layout = new GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 1280, Short.MAX_VALUE));
+    layout.setVerticalGroup(
+        layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 800, Short.MAX_VALUE));
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    pack();
+  }
 
-                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-                getContentPane().setLayout(layout);
-                layout.setHorizontalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 1280, Short.MAX_VALUE)
-                );
-                layout.setVerticalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 800, Short.MAX_VALUE)
-                );
+  /**
+   * Main game code.
+   * @param args command line argument
+   */
+  public static void main(String[] args) {
+    //TODO: check for dev build
+    isDevBuild = false;
+    try {
+      for (UIManager.LookAndFeelInfo info : 
+          UIManager.getInstalledLookAndFeels()) {
+        if ("Nimbus".equals(info.getName())) {
+          UIManager.setLookAndFeel(info.getClassName());
+          break;
+        }
+      }
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+      Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+      Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (UnsupportedLookAndFeelException ex) {
+      Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+    }
 
-                pack();
-        }// </editor-fold>//GEN-END:initComponents
+    /* Create and display the form */
+    EventQueue.invokeLater(new Runnable() {
+      public void run() {
+        new GUI().setVisible(true);
+      }
+    });
+  }
 
-	
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-        //</editor-fold>
+  //Methods
+  void updateDisplay() {
+    revalidate();
+    repaint();
+  }
 
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new GUI().setVisible(true);
-			}
-		});
-		
-		
-	}
-	
-	//Methods
-	
-	void updateDisplay(){
-	
-		revalidate();
-		repaint();
-	}
-	
-	void setPlayer1Name(String name){
-		p1Name = name;
-		System.out.println("Player 1's name set to " + name);
-	}
-	
-	void setPlayer2Name(String name){
-		p2Name = name;
-		System.out.println("Player 2's name set to " + name);
-	}
-	
-	String getPlayer1Name(){
-		return p1Name;
-	}
-	
-	String getPlayer2Name(){
-		return p2Name;
-	}
-	
-	void addGamePanel(){
-		gamePanel = new GamePanel(this, mainMenu.getIsEnabled());
-		add(gamePanel);
-	}
-	
-	void removeGamePanel(){
-		remove(gamePanel);
-	}
-	
-	void addMainMenu(){
-		score1 = 0;
-		score2 = 0;
-		mainMenu = new MainMenuPanel(this);
-		add(mainMenu);
-	}
-	
-	void addGameOver(){
-		remove(gamePanel);
-		System.out.println("New Game Over Panel added");
-		gameOverPanel = new GameOverPanel(this, winner);
-		add(gameOverPanel);
-		updateDisplay();
-	}
-	
-	void setWinner(String winner){
-		this.winner = winner;
-	}
-	
-	int getScore1(){
-		return score1;
-	}
-	
-	int getScore2(){
-		return score2;
-	}
-	
-	void setScore1(int newScore){
-		score1 = newScore;
-	}
-	
-	void setScore2(int newScore){
-		score2 = newScore;
-	}
-	
+  void setPlayer1Name(String name) {
+    p1Name = name;
+    System.out.println("Player 1's name set to " + name);
+  }
 
-        // Variables declaration - do not modify//GEN-BEGIN:variables
-        // End of variables declaration//GEN-END:variables
+  void setPlayer2Name(String name) {
+    p2Name = name;
+    System.out.println("Player 2's name set to " + name);
+  }
+
+  String getPlayer1Name() {
+    return p1Name;
+  }
+
+  String getPlayer2Name() {
+    return p2Name;
+  }
+
+  void addGamePanel() {
+    gamePanel = new GamePanel(this, mainMenu.getIsEnabled());
+    add(gamePanel);
+  }
+
+  void removeGamePanel() {
+    remove(gamePanel);
+  }
+
+  void addMainMenu() {
+    score1 = 0;
+    score2 = 0;
+    mainMenu = new MainMenuPanel(this);
+    add(mainMenu);
+  }
+
+  void addGameOver() {
+    remove(gamePanel);
+    System.out.println("New Game Over Panel added");
+    gameOverPanel = new GameOverPanel(this, winner);
+    add(gameOverPanel);
+    updateDisplay();
+  }
+
+  void setWinner(String winner) {
+    this.winner = winner;
+  }
+
+  int getScore1() {
+    return score1;
+  }
+
+  int getScore2() {
+    return score2;
+  }
+
+  void setScore1(int newScore) {
+    score1 = newScore;
+  }
+
+  void setScore2(int newScore) {
+    score2 = newScore;
+  }
+  
+  /**
+   * Gets the win/loses of the systems history.
+   */
+  private void getScore() {
+    try {
+
+      BufferedReader in = new BufferedReader(new FileReader("game.save"));
+      String str;
+      while (in.ready()) {
+        str = in.readLine();
+        if (str != null) {          
+          if (str.substring(0, 6).equals("Wins1=")) {
+            wins1 = Integer.parseInt(new String(str.substring(6)));
+          } else if (str.substring(0, 8).equals("Losses1=")) {
+            losses1 = Integer.parseInt(new String(str.substring(8)));
+          } else if (str.substring(0, 6).equals("Wins2=")) {
+            wins2 = Integer.parseInt(new String(str.substring(6)));
+          } else if (str.substring(0, 8).equals("Losses2=")) {
+            losses2 = Integer.parseInt(new String(str.substring(8)));
+          } else if (str.substring(0, 9).equals("WinsComp=")) {
+            winsComp = Integer.parseInt(new String(str.substring(9)));
+          } else if (str.substring(0, 11).equals("LossesComp=")) {
+            lossesComp = Integer.parseInt(new String(str.substring(11)));
+          }
+        }
+      }
+      in.close();
+
+    } catch (IOException e) {
+      System.out.println("IOException handled in getScore(): " + e.getMessage());
+    } catch (Exception e) {
+      System.out.println("Exception handled in getScore(): " + e.getMessage());
+    }
+  }
+  
+  /**
+   * Get old scores from the last session.
+   */
+  public void getOldProgress() {
+    try {
+
+      BufferedReader in = new BufferedReader(new FileReader("game.save"));
+      String str;
+      while (in != null && in.ready()) {
+        str = in.readLine();
+        if (str != null) {
+          if (str.substring(0, 11).equals("Player1Win=")) {
+            score1 = Integer.parseInt(new String(str.substring(11)));
+          } else if (str.substring(0, 11).equals("Player2Win=")) {
+            score2  = Integer.parseInt(new String(str.substring(11)));;
+          } else if (str.substring(0, 12).equals("Player1Loss=")) {
+            score1 = Integer.parseInt(new String(str.substring(12)));
+          } else if (str.substring(0, 12).equals("Player2Loss=")) {
+            score2  = Integer.parseInt(new String(str.substring(12)));;
+          }
+        }
+      }
+      in.close();
+
+    } catch (IOException e) {
+      System.out.println("IOException handled in getOldProgress(): " + e.getMessage());
+    } catch (Exception e) {
+      System.out.println("Exception handled in getOldProgress(): " + e.getMessage());
+    }
+  }
+
+  /**
+   * This method saves the score of the game and the wins/loses of the players.
+   */
+  public boolean saveCurrentProgress() {
+    try {
+      String str;
+      File file = new File("game.save");
+      File tmp = new File("game.save.tmp");
+
+      if (tmp.exists()) {
+        System.out.println("Deleting existing game.save.tmp file");
+        if (!tmp.delete()) {
+          System.out.println("Could not delete game.save.tmp");
+        }
+      }
+
+      BufferedReader in = new BufferedReader(new FileReader(file));
+      BufferedWriter out = new BufferedWriter(new FileWriter(tmp));
+
+      if (this.isDevBuild()) {
+        score1 = 0;
+        score2 = 0;
+        wins1 = 0;
+        losses1 = 0;
+        wins2 = 0;
+        losses2 = 0;
+        winsComp = 0;
+        lossesComp = 0;
+      }
+      
+      while (in.ready()) {
+        str = in.readLine();
+        if (str != null) {
+          if (str.substring(0, 11).equals("Player1Win=")) {
+            out.write("Player1Win=" + Integer.toString(score1) + "\r\n");
+          } else if (str.substring(0, 11).equals("Player2Win=")) {
+            out.write("Player2Win=" + Integer.toString(score2) + "\r\n");
+          } else if (str.substring(0, 6).equals("Wins1=")) {
+            out.write("Wins=" + Integer.toString(wins1) + "\r\n");
+          } else if (str.substring(0, 8).equals("Losses1=")) {
+            out.write("Losses=" + Integer.toString(losses1) + "\r\n");
+          } else if (str.substring(0, 6).equals("Wins2=")) {
+            out.write("Wins=" + Integer.toString(wins2) + "\r\n");
+          } else if (str.substring(0, 8).equals("Losses2=")) {
+            out.write("Losses=" + Integer.toString(losses2) + "\r\n");
+          } else if (str.substring(0, 9).equals("WinsComp=")) {
+            out.write("Wins=" + Integer.toString(winsComp) + "\r\n");
+          } else if (str.substring(0, 11).equals("LossesComp=")) {
+            out.write("Losses=" + Integer.toString(lossesComp) + "\r\n");
+          } else {
+            out.write(str + "\r\n");
+          }
+        }
+      }
+      
+      in.close();
+      out.close();
+
+      if (!file.delete()) {
+        System.out.println("game.save cannot be deleted "
+            + "to replace with .tmp file.");
+        if (!tmp.delete()) {
+          System.out.println("game.save file not deleted.");
+          return false;
+        }
+      } else {
+        if (!tmp.renameTo(file)) {
+          System.out.println("Cannot rename game.save to game.save.");
+          return false;
+        }
+      }
+
+    } catch (FileNotFoundException e) {
+      System.out.println("FileNotFoundException handled in saveCurrentProgress(): " 
+          + e.getMessage());
+      return false;
+    } catch (IOException e) {
+      System.out.println("IOException handled in saveCurrentProgress(): " + e.getMessage());
+      return false;
+    } catch (Exception e) {
+      System.out.println("Exception handled in saveCurrentProgress(): " + e.getMessage());
+      return false;
+    }
+    return true;
+  }
+
+  private boolean isDevBuild() {
+    return isDevBuild;
+  }
 }
