@@ -7,6 +7,8 @@
 package connect.four.gui;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -41,15 +43,22 @@ public class GUI extends JFrame {
    * GUI constructor.
    */
   public GUI() {
-    this.getScore();
+    getScore();
     initComponents();
     mainMenu = new MainMenuPanel(this);
     add(mainMenu);
   }
 
   private void initComponents() {
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+    
+    //setDefaultCloseOperation( addWindowListener);   
+    this.addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent w) {
+        saveCurrentProgress();
+        w.getWindow().dispose();
+      }      
+    });
+    
     GroupLayout layout = new GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -117,9 +126,10 @@ public class GUI extends JFrame {
     return p2Name;
   }
 
-  void addGamePanel() {
+  GamePanel addGamePanel() {
     gamePanel = new GamePanel(this, mainMenu.getIsEnabled());
     add(gamePanel);
+    return gamePanel;
   }
 
   void removeGamePanel() {
@@ -127,8 +137,8 @@ public class GUI extends JFrame {
   }
 
   void addMainMenu() {
-    score1 = 0;
-    score2 = 0;
+    //score1 = 0;
+    //score2 = 0;
     mainMenu = new MainMenuPanel(this);
     add(mainMenu);
   }
@@ -172,17 +182,17 @@ public class GUI extends JFrame {
       while (in.ready()) {
         str = in.readLine();
         if (str != null) {          
-          if (str.substring(0, 6).equals("Wins1=")) {
+          if (str.length() > 6 && str.substring(0, 6).equals("Wins1=")) {
             wins1 = Integer.parseInt(new String(str.substring(6)));
-          } else if (str.substring(0, 8).equals("Losses1=")) {
+          } else if (str.length() > 8 && str.substring(0, 8).equals("Losses1=")) {
             losses1 = Integer.parseInt(new String(str.substring(8)));
-          } else if (str.substring(0, 6).equals("Wins2=")) {
+          } else if (str.length() > 6 && str.substring(0, 6).equals("Wins2=")) {
             wins2 = Integer.parseInt(new String(str.substring(6)));
-          } else if (str.substring(0, 8).equals("Losses2=")) {
+          } else if (str.length() > 8 && str.substring(0, 8).equals("Losses2=")) {
             losses2 = Integer.parseInt(new String(str.substring(8)));
-          } else if (str.substring(0, 9).equals("WinsComp=")) {
+          } else if (str.length() > 9 && str.substring(0, 9).equals("WinsComp=")) {
             winsComp = Integer.parseInt(new String(str.substring(9)));
-          } else if (str.substring(0, 11).equals("LossesComp=")) {
+          } else if (str.length() > 11 && str.substring(0, 11).equals("LossesComp=")) {
             lossesComp = Integer.parseInt(new String(str.substring(11)));
           }
         }
@@ -207,14 +217,10 @@ public class GUI extends JFrame {
       while (in != null && in.ready()) {
         str = in.readLine();
         if (str != null) {
-          if (str.substring(0, 11).equals("Player1Win=")) {
+          if (str.length() > 11 && str.substring(0, 11).equals("Player1Win=")) {
             score1 = Integer.parseInt(new String(str.substring(11)));
-          } else if (str.substring(0, 11).equals("Player2Win=")) {
+          } else if (str.length() > 11 && str.substring(0, 11).equals("Player2Win=")) {
             score2  = Integer.parseInt(new String(str.substring(11)));;
-          } else if (str.substring(0, 12).equals("Player1Loss=")) {
-            score1 = Integer.parseInt(new String(str.substring(12)));
-          } else if (str.substring(0, 12).equals("Player2Loss=")) {
-            score2  = Integer.parseInt(new String(str.substring(12)));;
           }
         }
       }
@@ -247,37 +253,32 @@ public class GUI extends JFrame {
       BufferedWriter out = new BufferedWriter(new FileWriter(tmp));
 
       if (this.isDevBuild()) {
-        score1 = 0;
-        score2 = 0;
-        wins1 = 0;
-        losses1 = 0;
-        wins2 = 0;
-        losses2 = 0;
-        winsComp = 0;
-        lossesComp = 0;
+        in.close();
+        out.close();
+        return true;
       }
       
       while (in.ready()) {
         str = in.readLine();
         if (str != null) {
-          if (str.substring(0, 11).equals("Player1Win=")) {
+          if (str.length() > 11 && str.substring(0, 11).equals("Player1Win=")) {
             out.write("Player1Win=" + Integer.toString(score1) + "\r\n");
-          } else if (str.substring(0, 11).equals("Player2Win=")) {
+          } else if (str.length() > 11 && str.substring(0, 11).equals("Player2Win=")) {
             out.write("Player2Win=" + Integer.toString(score2) + "\r\n");
-          } else if (str.substring(0, 6).equals("Wins1=")) {
-            out.write("Wins=" + Integer.toString(wins1) + "\r\n");
-          } else if (str.substring(0, 8).equals("Losses1=")) {
-            out.write("Losses=" + Integer.toString(losses1) + "\r\n");
-          } else if (str.substring(0, 6).equals("Wins2=")) {
-            out.write("Wins=" + Integer.toString(wins2) + "\r\n");
-          } else if (str.substring(0, 8).equals("Losses2=")) {
-            out.write("Losses=" + Integer.toString(losses2) + "\r\n");
-          } else if (str.substring(0, 9).equals("WinsComp=")) {
-            out.write("Wins=" + Integer.toString(winsComp) + "\r\n");
-          } else if (str.substring(0, 11).equals("LossesComp=")) {
-            out.write("Losses=" + Integer.toString(lossesComp) + "\r\n");
+          } else if (str.length() > 6 && str.substring(0, 6).equals("Wins1=")) {
+            out.write("Wins1=" + Integer.toString(wins1) + "\r\n");
+          } else if (str.length() > 8 && str.substring(0, 8).equals("Losses1=")) {
+            out.write("Losses1=" + Integer.toString(losses1) + "\r\n");
+          } else if (str.length() > 6 && str.substring(0, 6).equals("Wins2=")) {
+            out.write("Wins2=" + Integer.toString(wins2) + "\r\n");
+          } else if (str.length() > 8 && str.substring(0, 8).equals("Losses2=")) {
+            out.write("Losses2=" + Integer.toString(losses2) + "\r\n");
+          } else if (str.length() > 9 && str.substring(0, 9).equals("WinsComp=")) {
+            out.write("WinsComp=" + Integer.toString(winsComp) + "\r\n");
+          } else if (str.length() > 11 && str.substring(0, 11).equals("LossesComp=")) {
+            out.write("LossesComp=" + Integer.toString(lossesComp) + "\r\n");
           } else {
-            out.write(str + "\r\n");
+            out.write(str +  "\r\n");
           }
         }
       }

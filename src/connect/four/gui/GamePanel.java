@@ -33,6 +33,12 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
   boolean isComputerEnabled;
   boolean justWon;
 
+  /**
+   * Constructor for the game panel.
+   * 
+   * @param gui
+   * @param isComputerEnabled
+   */
   public GamePanel(GUI gui, boolean isComputerEnabled) {
     //whoPlayed = 1;
     players = new Player[2];
@@ -633,12 +639,25 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
   //GAME OVER
   @Override
   public void gameOver(Player winner, ScoreChart scores, ReadableBoard end) {
-    if(turnNum < 41){
-      if(game.getCurrentPlayer() == players[0]){
-        gui.setScore1(gui.getScore1()+1);
-      }
-      else if(game.getCurrentPlayer() == players[1]){
-        gui.setScore2(gui.getScore2()+1);
+    if (turnNum < 41) {
+      if (game.getCurrentPlayer() == players[0]) {
+        GUI.score1++;
+        if (isComputerEnabled) {
+          GUI.wins1++;
+          GUI.lossesComp++;
+        } else {
+          GUI.wins1++;
+          GUI.losses2++;
+        }
+      } else if (game.getCurrentPlayer() == players[1]) {
+        GUI.score2++;
+        if (isComputerEnabled) {
+          GUI.winsComp++;
+          GUI.losses1++;
+        } else {
+          GUI.wins2++;
+          GUI.losses1++;
+        }
       }
       gui.setWinner(game.getCurrentPlayer().getName());
 

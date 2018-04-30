@@ -6,19 +6,23 @@
 
 package connect.four.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JToggleButton;
-
-import connect.four.Game;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 public class MainMenuPanel extends JPanel {
 
@@ -71,8 +75,8 @@ public class MainMenuPanel extends JPanel {
     tfplayer2 = new JTextField();
     playerName1Label = new JLabel();
     playerName2Label = new JLabel();
-    play1= new JButton();
-    play2= new JButton();
+    play1 = new JButton();
+    play2 = new JButton();
     butPlay = new JButton();
     jtComputerToggle = new JToggleButton();
     
@@ -84,10 +88,10 @@ public class MainMenuPanel extends JPanel {
     lossCompLabel = new JLabel();
     loadButton = new JButton();
     
-    setBackground(new Color(0, 0, 0));
+    setBackground(new Color(50, 50, 50));
 
-    title.setFont(new Font("Lucida Grande", 0, 48)); // NOI18N
-    title.setForeground(new Color(255, 255, 255));
+    title.setFont(new Font("Source Sans Pro Black", 0, 48)); // NOI18N
+    title.setForeground(new Color(0, 0, 0));
     title.setText("Connect Four");
 
     tfplayer1.setText("Player 1");
@@ -107,22 +111,22 @@ public class MainMenuPanel extends JPanel {
     });
 
     playerName1Label.setFont(new Font("Lucida Grande", 0, 18));
-    playerName1Label.setForeground(new Color(255, 255, 255));
+    playerName1Label.setForeground(new Color(0, 0, 0));
     playerName1Label.setText("Player 1:");
 
     playerName2Label.setFont(new Font("Lucida Grande", 0, 18));
-    playerName2Label.setForeground(new Color(255, 255, 255));
+    playerName2Label.setForeground(new Color(0, 0, 0));
     playerName2Label.setText("Player 2:");
     
-    play1.setFont(new Font("Lucida Grande", 0, 36)); // NOI18N
+    play1.setFont(new Font("Lucida Grande", 0, 18)); // NOI18N
     play1.setText("Player 1 Start ");
     play1.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         play1ActionPerformed(evt);
       }
-      });
+    });
 
-    play2.setFont(new Font("Lucida Grande", 0, 36)); // NOI18N
+    play2.setFont(new Font("Lucida Grande", 0, 18)); // NOI18N
     play2.setText("Player 2 Start");
     play2.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
@@ -132,31 +136,31 @@ public class MainMenuPanel extends JPanel {
     });
     
     win1Label.setFont(new Font("Lucida Grande", 0, 18));
-    win1Label.setForeground(new Color(255, 255, 255));
-    win1Label.setText("Player 1 Wins:");
+    win1Label.setForeground(new Color(0, 0, 0));
+    win1Label.setText("Player 1 Wins: " + GUI.wins1);
     
     loss1Label.setFont(new Font("Lucida Grande", 0, 18));
-    loss1Label.setForeground(new Color(255, 255, 255));
-    loss1Label.setText("Player 1 Losses:");
+    loss1Label.setForeground(new Color(0, 0, 0));
+    loss1Label.setText("Player 1 Losses: " + GUI.losses1);
     
     win2Label.setFont(new Font("Lucida Grande", 0, 18));
-    win2Label.setForeground(new Color(255, 255, 255));
-    win2Label.setText("Player 2 Wins:");
+    win2Label.setForeground(new Color(0, 0, 0));
+    win2Label.setText("Player 2 Wins: " + GUI.wins2);
     
     loss2Label.setFont(new Font("Lucida Grande", 0, 18));
-    loss2Label.setForeground(new Color(255, 255, 255));
-    loss2Label.setText("Player 2 Losses:");
+    loss2Label.setForeground(new Color(0, 0, 0));
+    loss2Label.setText("Player 2 Losses: " + GUI.losses2);
     
     winCompLabel.setFont(new Font("Lucida Grande", 0, 18));
-    winCompLabel.setForeground(new Color(255, 255, 255));
-    winCompLabel.setText("Compputer Wins:");
+    winCompLabel.setForeground(new Color(0, 0, 0));
+    winCompLabel.setText("Computer Wins: " + GUI.winsComp);
     
     lossCompLabel.setFont(new Font("Lucida Grande", 0, 18));
-    lossCompLabel.setForeground(new Color(255, 255, 255));
-    lossCompLabel.setText("Computer Losses:");
+    lossCompLabel.setForeground(new Color(0, 0, 0));
+    lossCompLabel.setText("Computer Losses: " + GUI.lossesComp);
 
-    butPlay.setFont(new Font("Lucida Grande", 0, 36));
-    butPlay.setText("Random Player Starts");
+    butPlay.setFont(new Font("Lucida Grande", 0, 18));
+    butPlay.setText("Random Start");
     butPlay.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         butPlayActionPerformed(evt);
@@ -171,7 +175,7 @@ public class MainMenuPanel extends JPanel {
       }
     });
 
-    jtComputerToggle.setFont(new Font("Lucida Grande", 0, 18));
+    jtComputerToggle.setFont(new Font("Lucida Grande", 0, 36));
     jtComputerToggle.setText("Play Against Computer");
     jtComputerToggle.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
@@ -180,22 +184,27 @@ public class MainMenuPanel extends JPanel {
     });
  
     JPanel playerPanel = new JPanel();
+    playerPanel.setPreferredSize(new Dimension(200, 200));
+    
     JPanel titlePanel = new JPanel();
-    JPanel scorePanel = new JPanel();
+    titlePanel.setPreferredSize(new Dimension(1100, 100));
+    titlePanel.setBackground(new Color(100, 150, 150));
+    
+    JPanel scorePanel = new JPanel(new GridLayout(3, 2));
+    scorePanel.setPreferredSize(new Dimension(400, 200));
+    
     JPanel buttonPanel = new JPanel();
-    
-    playerPanel.setSize(100, 100);
-    
+    buttonPanel.setPreferredSize(new Dimension(1000, 150));
+
     initPlayerPanel(playerPanel);
     initTitlePanel(titlePanel);
     initScorePanel(scorePanel);
     initButtonPanel(buttonPanel);
     
-    this.add(titlePanel, BorderLayout.NORTH);
-    this.add(playerPanel, BorderLayout.CENTER);
-    this.add(scorePanel, BorderLayout.EAST);
-    this.add(buttonPanel, BorderLayout.SOUTH);
-    
+    this.add(titlePanel);
+    this.add(playerPanel);    
+    this.add(scorePanel);
+    this.add(buttonPanel);
   }
 
   private void initPlayerPanel(JPanel panel) {
@@ -213,22 +222,24 @@ public class MainMenuPanel extends JPanel {
     //Add components to column 1
     horizontalLayout.addGroup(layout.createParallelGroup()
         .addComponent(playerName1Label)
-        .addComponent(playerName2Label));      
+        .addComponent(tfplayer1));      
     //Main Middle column 2
     horizontalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(tfplayer1)
+        .addComponent(playerName2Label)
         .addComponent(tfplayer2));
     //Play button column 3
     horizontalLayout.addGroup(layout.createParallelGroup()
         .addComponent(play1)
-        .addComponent(play2));   
+        .addComponent(play2)
+        .addComponent(butPlay));   
     layout.setHorizontalGroup(horizontalLayout);
     
     //Add components to row 1
     verticalLayout.addGroup(layout.createParallelGroup()
         .addComponent(playerName1Label)
         .addComponent(tfplayer1)
-        .addComponent(play1)); 
+        .addComponent(play1)
+        .addComponent(butPlay)); 
   //Add components to row 2
     verticalLayout.addGroup(layout.createParallelGroup()
         .addComponent(playerName2Label)
@@ -266,8 +277,8 @@ public class MainMenuPanel extends JPanel {
 
     JComponent contentPane = new JPanel(new BorderLayout(), true); 
     contentPane.setLayout(layout);  
-    layout.setAutoCreateGaps(false);
-    layout.setAutoCreateContainerGaps(false);
+    layout.setAutoCreateGaps(true);
+    layout.setAutoCreateContainerGaps(true);
     
     GroupLayout.SequentialGroup horizontalLayout = layout.createSequentialGroup();  
     GroupLayout.SequentialGroup verticalLayout = layout.createSequentialGroup();
@@ -275,38 +286,28 @@ public class MainMenuPanel extends JPanel {
     //Horizontal Group Layout Setup
     //Add components to column 
     horizontalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(win1Label)
-        .addGap(10, 10, 10)
-        .addComponent(loss1Label)
-        .addGap(10, 10, 10)
-        .addComponent(win2Label)
-        .addGap(10, 10, 10)
-        .addComponent(loss2Label)
-        .addGap(10, 10, 10)
-        .addComponent(winCompLabel)
-        .addGap(10, 10, 10)
-        .addComponent(lossCompLabel));        
+        .addComponent(win1Label));      
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(loss1Label));    
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(win2Label));        
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(loss2Label));    
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(winCompLabel));        
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(lossCompLabel));    
     layout.setHorizontalGroup(horizontalLayout);
-    
+
     //Vertical Group Layout Setup
     //Add components to row 1
     verticalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(win1Label));   
-    //Add components to row 2
-    verticalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(loss1Label));    
-  //Add components to row 3
-    verticalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(win2Label));        
-    //Add components to row 4
-    verticalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(loss2Label));    
-    //Add Empty row to row 5
-    verticalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(winCompLabel));        
-    //Add components to row 6
-    verticalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(lossCompLabel));         
+        .addComponent(win1Label)
+        .addComponent(loss1Label)
+        .addComponent(win2Label)
+        .addComponent(loss2Label)
+        .addComponent(winCompLabel)
+        .addComponent(lossCompLabel));        
     layout.setVerticalGroup(verticalLayout);
   }
   
@@ -327,16 +328,15 @@ public class MainMenuPanel extends JPanel {
         .addComponent(jtComputerToggle));    
     horizontalLayout.addGroup(layout.createParallelGroup()
         .addComponent(loadButton));
-    horizontalLayout.addGroup(layout.createParallelGroup()
-        .addComponent(butPlay));           
+    //horizontalLayout.addGroup(layout.createParallelGroup()
+        //.addComponent(butPlay));           
     layout.setHorizontalGroup(horizontalLayout);
     
     //Vertical Group Layout Setup
     //Add components to row 1    
     verticalLayout.addGroup(layout.createParallelGroup()
         .addComponent(jtComputerToggle)
-        .addComponent(loadButton)
-        .addComponent(butPlay));               
+        .addComponent(loadButton));               
     layout.setVerticalGroup(verticalLayout);
   }
   
@@ -352,6 +352,7 @@ public class MainMenuPanel extends JPanel {
     gui.setPlayer1Name(tfplayer1.getText());
     gui.setPlayer2Name(tfplayer2.getText());
     //gui.game.start();
+    
     gui.remove(this);
     gui.addGamePanel();
     gui.updateDisplay();
@@ -365,7 +366,9 @@ public class MainMenuPanel extends JPanel {
     } else {
       play2.setEnabled(true);
     }
-    //gui.remove(this);
+    gui.setPlayer1Name(tfplayer1.getText());
+    gui.setPlayer2Name(tfplayer2.getText());
+    gui.remove(this);
     gui.addGamePanel();
     gui.updateDisplay();
 
@@ -375,16 +378,14 @@ public class MainMenuPanel extends JPanel {
   private void play2ActionPerformed(ActionEvent evt) {
     if (!isEnabled) {
       play1.setEnabled(false);
-
-
     } else {
       play2.setEnabled(true);
-
     }
-    //gui.remove(this);
+    gui.setPlayer1Name(tfplayer1.getText());
+    gui.setPlayer2Name(tfplayer2.getText());
+    gui.remove(this);
     gui.addGamePanel();
     gui.updateDisplay();
-
   }
   
   private void loadButtonActionPerformed(ActionEvent evt) {
