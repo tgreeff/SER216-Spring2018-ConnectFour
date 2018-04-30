@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class MainMenuPanel extends javax.swing.JPanel {
+public class MainMenuPanel extends JPanel {
 
   private String name1;
   private String name2;
@@ -52,6 +52,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
   public MainMenuPanel(GUI gui) {
     initComponents();
     setSize(1280,800);
+    
     this.gui = gui;
     isEnabled = false;
 
@@ -82,8 +83,6 @@ public class MainMenuPanel extends javax.swing.JPanel {
     winCompLabel = new JLabel();
     lossCompLabel = new JLabel();
     loadButton = new JButton();
-
-    ButtonGroup group = new ButtonGroup();
     
     setBackground(new Color(0, 0, 0));
 
@@ -92,6 +91,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     title.setText("Connect Four");
 
     tfplayer1.setText("Player 1");
+
     tfplayer1.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         tfplayer1ActionPerformed(evt);
@@ -99,6 +99,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     });
 
     tfplayer2.setText("Player 2");
+
     tfplayer2.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         tfplayer2ActionPerformed(evt);
@@ -113,25 +114,22 @@ public class MainMenuPanel extends javax.swing.JPanel {
     playerName2Label.setForeground(new Color(255, 255, 255));
     playerName2Label.setText("Player 2:");
     
-    play1.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
-    play1.setText("player 1 first");
-    play1.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
+    play1.setFont(new Font("Lucida Grande", 0, 36)); // NOI18N
+    play1.setText("Player 1 Start ");
+    play1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
         play1ActionPerformed(evt);
       }
       });
 
-    play2.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
-    play2.setText("olay");
-    play2.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
+    play2.setFont(new Font("Lucida Grande", 0, 36)); // NOI18N
+    play2.setText("Player 2 Start");
+    play2.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
         play2ActionPerformed(evt);
 
       }
     });
-
-    group.add(play1);
-    group.add(play2);
     
     win1Label.setFont(new Font("Lucida Grande", 0, 18));
     win1Label.setForeground(new Color(255, 255, 255));
@@ -157,78 +155,191 @@ public class MainMenuPanel extends javax.swing.JPanel {
     lossCompLabel.setForeground(new Color(255, 255, 255));
     lossCompLabel.setText("Computer Losses:");
 
-    butPlay.setFont(new Font("Lucida Grande", 0, 36)); // NOI18N
-    butPlay.setText("PLAY");
+    butPlay.setFont(new Font("Lucida Grande", 0, 36));
+    butPlay.setText("Random Player Starts");
     butPlay.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         butPlayActionPerformed(evt);
       }
     });
     
-    loadButton.setFont(new Font("Lucida Grande", 0, 36)); // NOI18N
-    loadButton.setText("PLAY");
+    loadButton.setFont(new Font("Lucida Grande", 0, 36));
+    loadButton.setText("Load Last Game");
     loadButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         loadButtonActionPerformed(evt);
       }
     });
 
-    jtComputerToggle.setFont(new Font("Lucida Grande", 0, 18)); // NOI18N
+    jtComputerToggle.setFont(new Font("Lucida Grande", 0, 18));
     jtComputerToggle.setText("Play Against Computer");
     jtComputerToggle.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         jtComputerToggleActionPerformed(evt);
       }
     });
-
-    GroupLayout layout = new GroupLayout(this);
-    this.setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addComponent(title)
-            .addGap(471, 471, 471))
-        .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(378, 378, 378)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(playerName1Label)
-                            .addGap(18, 18, 18)
-                            .addComponent(tfplayer1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(playerName2Label)
-                            .addGap(18, 18, 18)
-                            .addComponent(tfplayer2, GroupLayout.PREFERRED_SIZE, 431, GroupLayout.PREFERRED_SIZE))))
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(524, 524, 524)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(butPlay, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                        .addComponent(jtComputerToggle, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-            .addContainerGap(379, Short.MAX_VALUE)));
-    layout.setVerticalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addGap(38, 38, 38)
-            .addComponent(title)
-            .addGap(59, 59, 59)
-            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(tfplayer1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                .addComponent(playerName1Label))
-            .addGap(18, 18, 18)
-            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(tfplayer2, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                .addComponent(playerName2Label))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(jtComputerToggle, GroupLayout.PREFERRED_SIZE, 
-                52, GroupLayout.PREFERRED_SIZE)
-            .addGap(45, 45, 45)
-            .addComponent(butPlay, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(352, Short.MAX_VALUE)));
+ 
+    JPanel playerPanel = new JPanel();
+    JPanel titlePanel = new JPanel();
+    JPanel scorePanel = new JPanel();
+    JPanel buttonPanel = new JPanel();
+    
+    playerPanel.setSize(100, 100);
+    
+    initPlayerPanel(playerPanel);
+    initTitlePanel(titlePanel);
+    initScorePanel(scorePanel);
+    initButtonPanel(buttonPanel);
+    
+    this.add(titlePanel, BorderLayout.NORTH);
+    this.add(playerPanel, BorderLayout.CENTER);
+    this.add(scorePanel, BorderLayout.EAST);
+    this.add(buttonPanel, BorderLayout.SOUTH);
+    
   }
 
+  private void initPlayerPanel(JPanel panel) {
+    GroupLayout layout = new GroupLayout(panel);
+
+    JComponent contentPane = new JPanel(new BorderLayout(), true); 
+    contentPane.setLayout(layout);  
+    layout.setAutoCreateGaps(false);
+    layout.setAutoCreateContainerGaps(false);
+    
+    GroupLayout.SequentialGroup horizontalLayout = layout.createSequentialGroup();  
+    GroupLayout.SequentialGroup verticalLayout = layout.createSequentialGroup();
+    
+    //Horizontal Group Layout Setup
+    //Add components to column 1
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(playerName1Label)
+        .addComponent(playerName2Label));      
+    //Main Middle column 2
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(tfplayer1)
+        .addComponent(tfplayer2));
+    //Play button column 3
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(play1)
+        .addComponent(play2));   
+    layout.setHorizontalGroup(horizontalLayout);
+    
+    //Add components to row 1
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(playerName1Label)
+        .addComponent(tfplayer1)
+        .addComponent(play1)); 
+  //Add components to row 2
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(playerName2Label)
+        .addComponent(tfplayer2)
+        .addComponent(play2));           
+    layout.setVerticalGroup(verticalLayout);
+  }
+  
+  private void initTitlePanel(JPanel panel) {
+    GroupLayout layout = new GroupLayout(panel);
+
+    JComponent contentPane = new JPanel(new BorderLayout(), true); 
+    contentPane.setLayout(layout);  
+    layout.setAutoCreateGaps(false);
+    layout.setAutoCreateContainerGaps(false);
+    
+    GroupLayout.SequentialGroup horizontalLayout = layout.createSequentialGroup();  
+    GroupLayout.SequentialGroup verticalLayout = layout.createSequentialGroup();
+    
+    //Horizontal Group Layout Setup
+    //Add components to column 1
+    horizontalLayout.addGroup(layout.createParallelGroup()        
+        .addComponent(title));        
+    layout.setHorizontalGroup(horizontalLayout);
+    
+    //Vertical Group Layout Setup
+    //Add components to row 1
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(title ));
+    layout.setVerticalGroup(verticalLayout);
+  }
+  
+  private void initScorePanel(JPanel panel) {
+    GroupLayout layout = new GroupLayout(panel);
+
+    JComponent contentPane = new JPanel(new BorderLayout(), true); 
+    contentPane.setLayout(layout);  
+    layout.setAutoCreateGaps(false);
+    layout.setAutoCreateContainerGaps(false);
+    
+    GroupLayout.SequentialGroup horizontalLayout = layout.createSequentialGroup();  
+    GroupLayout.SequentialGroup verticalLayout = layout.createSequentialGroup();
+    
+    //Horizontal Group Layout Setup
+    //Add components to column 
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(win1Label)
+        .addGap(10, 10, 10)
+        .addComponent(loss1Label)
+        .addGap(10, 10, 10)
+        .addComponent(win2Label)
+        .addGap(10, 10, 10)
+        .addComponent(loss2Label)
+        .addGap(10, 10, 10)
+        .addComponent(winCompLabel)
+        .addGap(10, 10, 10)
+        .addComponent(lossCompLabel));        
+    layout.setHorizontalGroup(horizontalLayout);
+    
+    //Vertical Group Layout Setup
+    //Add components to row 1
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(win1Label));   
+    //Add components to row 2
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(loss1Label));    
+  //Add components to row 3
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(win2Label));        
+    //Add components to row 4
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(loss2Label));    
+    //Add Empty row to row 5
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(winCompLabel));        
+    //Add components to row 6
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(lossCompLabel));         
+    layout.setVerticalGroup(verticalLayout);
+  }
+  
+  private void initButtonPanel(JPanel panel) {
+    GroupLayout layout = new GroupLayout(panel);
+
+    JComponent contentPane = new JPanel(new BorderLayout(), true); 
+    contentPane.setLayout(layout);  
+    layout.setAutoCreateGaps(false);
+    layout.setAutoCreateContainerGaps(false);
+    
+    GroupLayout.SequentialGroup horizontalLayout = layout.createSequentialGroup();  
+    GroupLayout.SequentialGroup verticalLayout = layout.createSequentialGroup();
+    
+    //Horizontal Group Layout Setup
+    //Add components to column 
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(jtComputerToggle));    
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(loadButton));
+    horizontalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(butPlay));           
+    layout.setHorizontalGroup(horizontalLayout);
+    
+    //Vertical Group Layout Setup
+    //Add components to row 1    
+    verticalLayout.addGroup(layout.createParallelGroup()
+        .addComponent(jtComputerToggle)
+        .addComponent(loadButton)
+        .addComponent(butPlay));               
+    layout.setVerticalGroup(verticalLayout);
+  }
+  
   private void tfplayer2ActionPerformed(ActionEvent evt) {
 
   }
@@ -247,11 +358,11 @@ public class MainMenuPanel extends javax.swing.JPanel {
   }
   
   private void play1ActionPerformed(ActionEvent evt) {
-    if(!isEnabled) {
+    if (!isEnabled) {
       play2.setEnabled(false);
       //play1.pla
 
-    }else {
+    } else {
       play2.setEnabled(true);
     }
     //gui.remove(this);
@@ -262,12 +373,11 @@ public class MainMenuPanel extends javax.swing.JPanel {
   
 
   private void play2ActionPerformed(ActionEvent evt) {
-    if(!isEnabled) {
+    if (!isEnabled) {
       play1.setEnabled(false);
 
 
-    }else
-    {
+    } else {
       play2.setEnabled(true);
 
     }
@@ -285,10 +395,12 @@ public class MainMenuPanel extends javax.swing.JPanel {
   private void jtComputerToggleActionPerformed(ActionEvent evt) {
     if (!isEnabled) {
       tfplayer2.setText("Computer");
+      jtComputerToggle.setText("Play Against Player  ");
       tfplayer2.setEditable(false);
       isEnabled = true;
     } else {
       tfplayer2.setText("Player 2");
+      jtComputerToggle.setText("Play Against Computer");
       tfplayer2.setEditable(true);
       isEnabled = false;
     }
