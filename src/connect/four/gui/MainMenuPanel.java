@@ -402,6 +402,7 @@ public class MainMenuPanel extends JPanel {
     } else {
       tfplayer2.setText("Player 2");
       jtComputerToggle.setText("Play Against Computer");
+      //here
       tfplayer2.setEditable(true);
       isEnabled = false;
     }
