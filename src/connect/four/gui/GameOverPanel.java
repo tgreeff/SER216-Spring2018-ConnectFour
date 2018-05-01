@@ -71,6 +71,7 @@ public class GameOverPanel extends JPanel {
     exit.setText("Exit Game");
     exit.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
+        gui.saveCurrentProgress();
         System.exit(0);
       }
     });
@@ -102,20 +103,18 @@ public class GameOverPanel extends JPanel {
         .addComponent(butPlayAgain, GroupLayout.DEFAULT_SIZE, 
             GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addComponent(labelGameOVer, GroupLayout.DEFAULT_SIZE, 
+            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(exit, GroupLayout.DEFAULT_SIZE, 
             GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         .addGroup(layout.createSequentialGroup()
-         .addGap(551, 551, 551)
-         
-         
-         .addComponent(exit, GroupLayout.DEFAULT_SIZE, 
-                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-             .addComponent(labelGameOVer, GroupLayout.DEFAULT_SIZE, 
-                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-             .addGroup(layout.createSequentialGroup()
-              .addGap(400, 400, 400)
-         
-         
-         
+        .addGap(551, 551, 551)
+
+        
+
+            
+        
+        
+        
         .addComponent(butMainMenu, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(429, Short.MAX_VALUE)));
         
@@ -133,7 +132,10 @@ public class GameOverPanel extends JPanel {
             .addComponent(butPlayAgain, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
             .addGap(37, 37, 37)
             .addComponent(butMainMenu, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(304, Short.MAX_VALUE)));
+            .addContainerGap(304, Short.MAX_VALUE)
+            .addComponent(exit, GroupLayout.DEFAULT_SIZE, 
+                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      );
   }
 
   private void butPlayAgainActionPerformed(ActionEvent evt) {
@@ -150,5 +152,5 @@ public class GameOverPanel extends JPanel {
     gui.repaint();
   }
   
-  
+
 }
