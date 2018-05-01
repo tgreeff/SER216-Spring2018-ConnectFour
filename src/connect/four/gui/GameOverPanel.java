@@ -113,7 +113,7 @@ public class GameOverPanel extends JPanel {
 
   private void butPlayAgainActionPerformed(ActionEvent evt) {
     gui.remove(this);
-    gui.addGamePanel();
+    gui.addGamePanel(2);
     gui.revalidate();
     gui.repaint();
   }

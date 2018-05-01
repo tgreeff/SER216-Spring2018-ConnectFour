@@ -33,7 +33,13 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
   boolean isComputerEnabled;
   boolean justWon;
 
-  public GamePanel(GUI gui, boolean isComputerEnabled) {
+  /**
+   * Constructor for the game panel.
+   * 
+   * @param gui
+   * @param isComputerEnabled
+   */
+  public GamePanel(GUI gui, boolean isComputerEnabled, int startingPlayer) {
     //whoPlayed = 1;
     players = new Player[2];
     players[0] = new GUIPlayer(gui.getPlayer1Name(), this);
@@ -49,7 +55,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     this.gui = gui;
     board = new Board(7,6);
     game = new Game(players,board, 4);
-    game.start();
+    game.start(startingPlayer);
     game.registerListener(this);
     justWon = false;
 
@@ -633,12 +639,25 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
   //GAME OVER
   @Override
   public void gameOver(Player winner, ScoreChart scores, ReadableBoard end) {
-    if(turnNum < 41){
-      if(game.getCurrentPlayer() == players[0]){
-        gui.setScore1(gui.getScore1()+1);
-      }
-      else if(game.getCurrentPlayer() == players[1]){
-        gui.setScore2(gui.getScore2()+1);
+    if (turnNum < 41) {
+      if (game.getCurrentPlayer() == players[0]) {
+        GUI.score1++;
+        if (isComputerEnabled) {
+          GUI.wins1++;
+          GUI.lossesComp++;
+        } else {
+          GUI.wins1++;
+          GUI.losses2++;
+        }
+      } else if (game.getCurrentPlayer() == players[1]) {
+        GUI.score2++;
+        if (isComputerEnabled) {
+          GUI.winsComp++;
+          GUI.losses1++;
+        } else {
+          GUI.wins2++;
+          GUI.losses1++;
+        }
       }
       gui.setWinner(game.getCurrentPlayer().getName());
 
@@ -663,6 +682,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     Timer timer = new Timer(100, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        
         long tick = System.currentTimeMillis() - GLOW_START_TIME;
         tick = (tick / 100);
         //System.out.println(tick%6);
@@ -671,10 +691,8 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
         topGlass.revalidate();
         topGlass.repaint();
       }
-
-
-
     });
+    
     timer.setRepeats(true);
     timer.setCoalesce(true);
     timer.start();
