@@ -14,6 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
+//SOUND
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioSystem;
 
 public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener {
 
@@ -32,6 +36,11 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
   Board board;
   boolean isComputerEnabled;
   boolean justWon;
+  
+  	//SOUND
+	private AudioInputStream tokenDropAIS;
+	private Clip tokenDropClip;
+
 
   /**
    * Constructor for the game panel.
@@ -58,6 +67,15 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     game.start(startingPlayer);
     game.registerListener(this);
     justWon = false;
+    
+    //SOUND
+    try {
+    	tokenDropAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/blurp_x.wav"));
+    	tokenDropClip = AudioSystem.getClip();
+    	tokenDropClip.open(tokenDropAIS);
+    	} catch(Exception e) {
+    		System.out.println("Failure to load sound");
+    }
 
     initNewGame();
   }
@@ -386,12 +404,14 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     {
       @Override
       public void actionPerformed(ActionEvent e) {
+
+        
         int x = pieces[turnNum].getX();
         int y = pieces[turnNum].getY();
         int startY = y;
         long duration = System.currentTimeMillis() - startTime;
         float progress = (float)duration / (float)PLAY_TIME;
-
+        
         if (progress > 1f) 
         {
           progress = 1f;
@@ -438,6 +458,9 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
         }
       }
     });
+	//SOUND
+    tokenDropClip.setFramePosition(1);
+    tokenDropClip.start();
     timer.start();
   }
 
@@ -697,8 +720,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     timer.setCoalesce(true);
     timer.start();
   }
-
-
+  
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel bgImage;
   private javax.swing.JPanel col1;

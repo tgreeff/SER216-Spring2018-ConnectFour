@@ -14,6 +14,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -49,6 +53,12 @@ public class MainMenuPanel extends JPanel {
   private JLabel lossCompLabel;
   private JButton loadButton;
   
+  //SOUND
+  private AudioInputStream computerMercyAIS;
+  private Clip computerMercyClip;
+  private AudioInputStream humanAIS;
+  private Clip humanClip;
+  
   /**
    * Main Menu constructor.
    * @param gui the gui object for the game.
@@ -61,6 +71,18 @@ public class MainMenuPanel extends JPanel {
     isEnabled = false;
 
     setVisible(true);
+    
+    //SOUND
+    try {
+    	computerMercyAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/computer_mercy.wav"));
+    	computerMercyClip = AudioSystem.getClip();
+    	computerMercyClip.open(computerMercyAIS);
+    	humanAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/lets_play.wav"));
+    	humanClip = AudioSystem.getClip();
+    	humanClip.open(humanAIS);
+    	} catch(Exception e) {
+    		System.out.println("Failure to load sound");
+    }
   }
 
   /**
@@ -397,11 +419,17 @@ public class MainMenuPanel extends JPanel {
     if (!isEnabled) {
       tfplayer2.setText("Computer");
       jtComputerToggle.setText("Play Against Player  ");
+      //SOUND
+      computerMercyClip.setFramePosition(1);
+      computerMercyClip.start();
       tfplayer2.setEditable(false);
       isEnabled = true;
     } else {
       tfplayer2.setText("Player 2");
       jtComputerToggle.setText("Play Against Computer");
+      //SOUND
+      humanClip.setFramePosition(1);
+      humanClip.start();
       tfplayer2.setEditable(true);
       isEnabled = false;
     }
