@@ -44,6 +44,9 @@ public class MainMenuPanel extends JPanel {
   private JLabel title;
   private JButton play1;
   private JButton play2;
+  private JButton board1;
+  private JButton board2;
+  private JButton board3;
   
   private JLabel win1Label;
   private JLabel loss1Label;
@@ -99,6 +102,9 @@ public class MainMenuPanel extends JPanel {
     playerName2Label = new JLabel();
     play1 = new JButton();
     play2 = new JButton();
+    board1 = new JButton();
+    board2 = new JButton();
+    board3 = new JButton();
     butPlay = new JButton();
     jtComputerToggle = new JToggleButton();
     
@@ -154,6 +160,30 @@ public class MainMenuPanel extends JPanel {
       public void actionPerformed(ActionEvent evt) {
         play2ActionPerformed(evt);
 
+      }
+    });
+    
+    board1.setFont(new Font("Lucida Grande", 0, 18)); // NOI18N
+    board1.setText("Board 1 ");
+    board1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        board1ActionPerformed(evt);
+      }
+    });
+    
+    board2.setFont(new Font("Lucida Grande", 0, 18)); // NOI18N
+    board2.setText("Board 2 ");
+    board2.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        board2ActionPerformed(evt);
+      }
+    });
+    
+    board3.setFont(new Font("Lucida Grande", 0, 18)); // NOI18N
+    board3.setText("Board 3 ");
+    board3.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        board3ActionPerformed(evt);
       }
     });
     
@@ -410,6 +440,15 @@ public class MainMenuPanel extends JPanel {
     gui.updateDisplay();
   }
   
+  private void board1ActionPerformed(ActionEvent evt) {
+	  }
+  
+  private void board2ActionPerformed(ActionEvent evt) {
+  }
+  
+  private void board3ActionPerformed(ActionEvent evt) {
+  }
+  
   private void loadButtonActionPerformed(ActionEvent evt) {
     gui.getOldProgress();
     
@@ -434,6 +473,7 @@ public class MainMenuPanel extends JPanel {
       isEnabled = false;
     }
   }
+  
 
   public boolean getIsEnabled() {
     return isEnabled;
