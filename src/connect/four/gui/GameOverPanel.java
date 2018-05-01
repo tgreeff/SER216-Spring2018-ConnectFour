@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,6 +28,12 @@ public class GameOverPanel extends JPanel {
   private JLabel winner;
   private JLabel winnerDisplay;
   
+  //SOUND
+  private AudioInputStream cheerAIS;
+  private Clip cheerClip;
+  private AudioInputStream booAIS;
+  private Clip booClip;
+  
   public GameOverPanel(GUI gui, String winner) {
     initComponents();
     this.gui = gui;
@@ -32,6 +41,18 @@ public class GameOverPanel extends JPanel {
     System.out.println("Here!");
     winnerDisplay.setText(winner);
     setVisible(true);
+    
+    //SOUND
+    try {
+    	cheerAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/cheering.wav"));
+    	cheerClip = AudioSystem.getClip();
+    	cheerClip.open(cheerAIS);
+    	booAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/boo.wav"));
+    	booClip = AudioSystem.getClip();
+    	booClip.open(booAIS);
+    	} catch(Exception e) {
+    		System.out.println("Failure to load sound");
+    }
   }
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -62,6 +83,9 @@ public class GameOverPanel extends JPanel {
     butPlayAgain.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         butPlayAgainActionPerformed(evt);
+        //SOUND
+        cheerClip.setFramePosition(1);
+        cheerClip.start();
       }
     });
 
@@ -70,6 +94,9 @@ public class GameOverPanel extends JPanel {
     butMainMenu.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         butMainMenuActionPerformed(evt);
+        //SOUND
+        booClip.setFramePosition(1);
+        booClip.start();
       }
     });
 
