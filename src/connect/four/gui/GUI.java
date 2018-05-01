@@ -126,8 +126,8 @@ public class GUI extends JFrame {
     return p2Name;
   }
 
-  GamePanel addGamePanel() {
-    gamePanel = new GamePanel(this, mainMenu.getIsEnabled());
+  GamePanel addGamePanel(int startingPlayer) {
+    gamePanel = new GamePanel(this, mainMenu.getIsEnabled(), startingPlayer);
     add(gamePanel);
     return gamePanel;
   }

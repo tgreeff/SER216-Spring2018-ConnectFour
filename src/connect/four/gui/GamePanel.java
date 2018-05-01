@@ -39,7 +39,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
    * @param gui
    * @param isComputerEnabled
    */
-  public GamePanel(GUI gui, boolean isComputerEnabled) {
+  public GamePanel(GUI gui, boolean isComputerEnabled, int startingPlayer) {
     //whoPlayed = 1;
     players = new Player[2];
     players[0] = new GUIPlayer(gui.getPlayer1Name(), this);
@@ -55,7 +55,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     this.gui = gui;
     board = new Board(7,6);
     game = new Game(players,board, 4);
-    game.start();
+    game.start(startingPlayer);
     game.registerListener(this);
     justWon = false;
 
@@ -682,6 +682,7 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     Timer timer = new Timer(100, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        
         long tick = System.currentTimeMillis() - GLOW_START_TIME;
         tick = (tick / 100);
         //System.out.println(tick%6);
@@ -690,10 +691,8 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
         topGlass.revalidate();
         topGlass.repaint();
       }
-
-
-
     });
+    
     timer.setRepeats(true);
     timer.setCoalesce(true);
     timer.start();

@@ -194,7 +194,7 @@ public class MainMenuPanel extends JPanel {
     scorePanel.setPreferredSize(new Dimension(400, 200));
     
     JPanel buttonPanel = new JPanel();
-    buttonPanel.setPreferredSize(new Dimension(1000, 150));
+    buttonPanel.setPreferredSize(new Dimension(700, 75));
 
     initPlayerPanel(playerPanel);
     initTitlePanel(titlePanel);
@@ -354,7 +354,7 @@ public class MainMenuPanel extends JPanel {
     //gui.game.start();
     
     gui.remove(this);
-    gui.addGamePanel();
+    gui.addGamePanel(2);
     gui.updateDisplay();
   }
   
@@ -369,7 +369,7 @@ public class MainMenuPanel extends JPanel {
     gui.setPlayer1Name(tfplayer1.getText());
     gui.setPlayer2Name(tfplayer2.getText());
     gui.remove(this);
-    gui.addGamePanel();
+    gui.addGamePanel(0);
     gui.updateDisplay();
 
   }
@@ -384,7 +384,7 @@ public class MainMenuPanel extends JPanel {
     gui.setPlayer1Name(tfplayer1.getText());
     gui.setPlayer2Name(tfplayer2.getText());
     gui.remove(this);
-    gui.addGamePanel();
+    gui.addGamePanel(1);
     gui.updateDisplay();
   }
   
