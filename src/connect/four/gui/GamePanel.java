@@ -38,8 +38,8 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
   boolean justWon;
   
   	//SOUND
-	private AudioInputStream clipNameAIS;
-	private Clip clipNameClip;
+	private AudioInputStream tokenDropAIS;
+	private Clip tokenDropClip;
 
 
   /**
@@ -70,9 +70,9 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
     
     //SOUND
     try {
-    	clipNameAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/blurp_x.wav"));
-    	clipNameClip = AudioSystem.getClip();
-    	clipNameClip.open(clipNameAIS);
+    	tokenDropAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/blurp_x.wav"));
+    	tokenDropClip = AudioSystem.getClip();
+    	tokenDropClip.open(tokenDropAIS);
     	} catch(Exception e) {
     		System.out.println("Failure to load sound");
     }
@@ -459,8 +459,8 @@ public class GamePanel extends javax.swing.JPanel implements ScoreChart.Listener
       }
     });
 	//SOUND
-    clipNameClip.setFramePosition(1);
-    clipNameClip.start();
+    tokenDropClip.setFramePosition(1);
+    tokenDropClip.start();
     timer.start();
   }
 
