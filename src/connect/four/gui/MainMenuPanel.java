@@ -56,6 +56,8 @@ public class MainMenuPanel extends JPanel {
   //SOUND
   private AudioInputStream computerMercyAIS;
   private Clip computerMercyClip;
+  private AudioInputStream humanAIS;
+  private Clip humanClip;
   
   /**
    * Main Menu constructor.
@@ -75,6 +77,9 @@ public class MainMenuPanel extends JPanel {
     	computerMercyAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/computer_mercy.wav"));
     	computerMercyClip = AudioSystem.getClip();
     	computerMercyClip.open(computerMercyAIS);
+    	humanAIS = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/SOUNDS/lets_play.wav"));
+    	humanClip = AudioSystem.getClip();
+    	humanClip.open(humanAIS);
     	} catch(Exception e) {
     		System.out.println("Failure to load sound");
     }
@@ -422,6 +427,9 @@ public class MainMenuPanel extends JPanel {
     } else {
       tfplayer2.setText("Player 2");
       jtComputerToggle.setText("Play Against Computer");
+      //SOUND
+      humanClip.setFramePosition(1);
+      humanClip.start();
       tfplayer2.setEditable(true);
       isEnabled = false;
     }
