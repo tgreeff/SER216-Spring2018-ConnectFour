@@ -21,6 +21,7 @@ public class GameOverPanel extends JPanel {
 
   private JButton butMainMenu;
   private JButton butPlayAgain;
+  private JButton exit;
   private JLabel labelGameOVer;
   private JLabel winner;
   private JLabel winnerDisplay;
@@ -41,6 +42,7 @@ public class GameOverPanel extends JPanel {
     winner = new JLabel();
     labelGameOVer = new JLabel();
     butPlayAgain = new JButton();
+    exit= new JButton();
     butMainMenu = new JButton();
 
     setBackground(new Color(0, 0, 0));
@@ -64,6 +66,14 @@ public class GameOverPanel extends JPanel {
         butPlayAgainActionPerformed(evt);
       }
     });
+    
+    exit.setFont(new Font("Lucida Grande", 0, 14)); // NOI18N
+    exit.setText("Exit Game");
+    exit.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        System.exit(0);
+      }
+    });
 
     butMainMenu.setFont(new Font("Lucida Grande", 0, 14)); // NOI18N
     butMainMenu.setText("Main Menu");
@@ -71,6 +81,7 @@ public class GameOverPanel extends JPanel {
       public void actionPerformed(ActionEvent evt) {
         butMainMenuActionPerformed(evt);
       }
+      
     });
 
     GroupLayout layout = new GroupLayout(this);
@@ -87,14 +98,28 @@ public class GameOverPanel extends JPanel {
         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(winnerDisplay, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+        		
         .addComponent(butPlayAgain, GroupLayout.DEFAULT_SIZE, 
             GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addComponent(labelGameOVer, GroupLayout.DEFAULT_SIZE, 
             GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         .addGroup(layout.createSequentialGroup()
          .addGap(551, 551, 551)
+         
+         
+         .addComponent(exit, GroupLayout.DEFAULT_SIZE, 
+                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+             .addComponent(labelGameOVer, GroupLayout.DEFAULT_SIZE, 
+                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+             .addGroup(layout.createSequentialGroup()
+              .addGap(400, 400, 400)
+         
+         
+         
         .addComponent(butMainMenu, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(429, Short.MAX_VALUE)));
+        
+        
     layout.setVerticalGroup(
         layout.createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
