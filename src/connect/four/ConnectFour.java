@@ -27,7 +27,7 @@ public class ConnectFour {
 	Game game = new Game(new Player[] {p1, p2}, new Board(7, 6), 4);
 	game.registerListener(p1);
 	if (p2 instanceof ScoreChart.Listener) game.registerListener((ScoreChart.Listener)p2);
-	game.start();
+	game.start(2);
     }
 	
 }
